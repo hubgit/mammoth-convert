@@ -1,0 +1,12 @@
+{
+  "name": "mammoth-convert",
+  "version": "1.0.0",
+  "author": "Alf Eaton <eaton.alf@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mammoth": "^1.4.8"
+  },
+  "scripts": {
+    "build": "echo 'done'"
+  }
+}

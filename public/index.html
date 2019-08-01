@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Mammoth Convert</title>
+
+  <style>
+    body {
+      font: 12px sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+<form>
+  <input type="file" name="file">
+
+  <label for="format">Format:</label>
+  <select name="format" id="format">
+    <option value="html">HTML</option>
+    <option value="text">Text</option>
+    <option value="markdown">Markdown</option>
+  </select>
+
+  <button type="submit" name="convert">Convert</button>
+</form>
+
+<script>
+  const form = document.querySelector('form')
+
+  const { file, format, convert } = form
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault()
+
+    convert.textContent = 'Converting…'
+
+    const [body] = file.files
+
+    const response = await fetch(`api/${format.value}.js`, {
+      method: 'POST',
+      body,
+      headers: {
+        'content-type': 'application/octet-stream'
+      }
+    })
+
+    if (response.ok) {
+      window.open(URL.createObjectURL(await response.blob()))
+    } else {
+      alert(await response.text())
+    }
+
+    convert.textContent = 'Convert'
+  })
+</script>
+</body>
+</html>
